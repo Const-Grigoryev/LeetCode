@@ -16,6 +16,7 @@
 #   1. `1 <= s.length = shifts.length <= 20000`
 #   2. `0 <= shifts[i] <= 10^9`
 
+from typing import List
 from itertools import accumulate
 import string
 
