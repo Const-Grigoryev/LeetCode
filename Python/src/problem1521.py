@@ -25,6 +25,7 @@
 #   * `1 <= arr[i] <= 10^6`
 #   * `0 <= target <= 10^7`
 
+from typing import List
 import itertools
 
 class ElementWise:
@@ -81,4 +82,4 @@ if __name__ == '__main__':
     # is 999999.
     print(f"{s.closestToTarget(arr=[1000000, 1000000, 1000000], target=1)} == 999999")
 
-    print(f"{s.closestToTarget(arr=[1,2,4,8,16], target=0)} == 0")
+    print(f"{s.closestToTarget(arr=[1, 2, 4, 8, 16], target=0)} == 0")
