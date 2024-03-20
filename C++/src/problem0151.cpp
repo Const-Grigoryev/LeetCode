@@ -18,9 +18,11 @@
  *     There is at least one word in s.
  *
  * **Follow up:** Could you solve it **in-place** with `O(1)` extra space?
+ *
+ * Source: https://leetcode.com/problems/reverse-words-in-a-string/
  */
 
-#include <iostream>
+#include "common.h"
 
 #include <cctype>
 #include <algorithm>
@@ -28,58 +30,56 @@
 
 class Solution {
 public:
-  std::string reverseWords(std::string& s) {
-    // Exclude leading and trailing spaces
-    auto begin = std::find_if_not(s.begin(), s.end(), isspace);
-    auto end = std::find_if_not(s.rbegin(), s.rend(), isspace).base();
+	std::string reverseWords(std::string &s) {
+		// Exclude leading and trailing spaces
+		auto begin = std::find_if_not(s.begin(), s.end(), isspace);
+		auto end = std::find_if_not(s.rbegin(), s.rend(), isspace).base();
 
-    if (begin <= end) {
-      // Remove repeating spaces
-      end = std::unique(begin, end,
-        [](char x, char y) { return isspace(x) && isspace(y); }
-      );
+		if (begin <= end) {
+			// Remove repeating spaces
+			end = std::unique(begin, end,
+				[](char x, char y) { return isspace(x) && isspace(y); }
+			);
 
-      // Reverse the whole string
-      std::reverse(begin, end);
+			// Reverse the whole string
+			std::reverse(begin, end);
 
-      // Detect each particular?? word and reverse it
-      auto split = end;
-      do {
-        auto word_begin = split == end ? begin : split + 1;
-        auto word_end = split = std::find_if(word_begin, end, isspace);
-        std::reverse(word_begin, word_end);
-      } while (split != end);
-    }
-    else {
-      // Treat a corner case, when the string has no words
-      begin = end;
-    }
+			// Detect each particular?? word and reverse it
+			auto split = end;
+			do {
+				auto word_begin = split == end ? begin : split + 1;
+				auto word_end = split = std::find_if(word_begin, end, isspace);
+				std::reverse(word_begin, word_end);
+			} while (split != end);
+		}
+		else {
+			// Treat a corner case, when the string has no words
+			begin = end;
+		}
 
-    s.assign(begin, end);
-    return s;
-  }
+		s.assign(begin, end);
+		return s;
+	}
 };
 
 int main() {
-  Solution s;
-  std::string str;
+	Solution s;
+	std::string str;
 
-  str = "the sky is blue";
-  std::cout << "\'" << s.reverseWords(str) << "\' == \'blue is sky the\'" << std::endl;
+	str = "the sky is blue";
+	std::cout << "\'" << s.reverseWords(str) << "\' == \'blue is sky the\'" << std::endl;
 
-  // Your reversed string should not contain leading or trailing spaces.
-  str = "  hello world  ";
-  std::cout << "\'" << s.reverseWords(str) << "\' == \'world hello\'" << std::endl;
+	// Your reversed string should not contain leading or trailing spaces.
+	str = "  hello world  ";
+	std::cout << "\'" << s.reverseWords(str) << "\' == \'world hello\'" << std::endl;
 
-  // You need to reduce multiple spaces between two words to a single space in the reversed string.
-  str = "a good   example";
-  std::cout << "\'" << s.reverseWords(str) << "\' == \'example good a\'" << std::endl;
+	// You need to reduce multiple spaces between two words to a single space in the reversed string.
+	str = "a good   example";
+	std::cout << "\'" << s.reverseWords(str) << "\' == \'example good a\'" << std::endl;
 
-  str = "  Bob    Loves  Alice   ";
-  std::cout << "\'" << s.reverseWords(str) << "\' == \'Alice Loves Bob\'" << std::endl;
+	str = "  Bob    Loves  Alice   ";
+	std::cout << "\'" << s.reverseWords(str) << "\' == \'Alice Loves Bob\'" << std::endl;
 
-  str = "Alice does not even like bob";
-  std::cout << "\'" << s.reverseWords(str) << "\' == \'bob like even not does Alice\'" << std::endl;
-
-  return 0;
+	str = "Alice does not even like bob";
+	std::cout << "\'" << s.reverseWords(str) << "\' == \'bob like even not does Alice\'" << std::endl;
 }
