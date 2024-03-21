@@ -36,6 +36,12 @@ class SummaryRanges {
 
 public:
 	void addNum(int v) {
+		// When an iterator considered marking an "insertion point", it spots the whole
+		// gap between actual entries. We may say, it is *logically placed* in that gap.
+		// Moreover, a corresponding reverse iterator is placed between the same entries
+		// and denotes the very same gap! But as the regular iterator points to the
+		// right endpoint of the gap, its reverse counterpart points to the left. That's
+		// why we get different values after dereferring `it` and `rit`.
 		auto it = m.upper_bound(v);
 		auto rit = std::map<int, int>::reverse_iterator(it);
 		if (rit != m.rend() && v <= rit->second)
@@ -57,24 +63,23 @@ public:
 	std::vector<std::vector<int>> getIntervals() const {
 		std::vector<std::vector<int>> answer;
 		std::transform(m.begin(), m.end(), std::back_inserter(answer),
-	        [](const auto &i) { return std::vector<int>{i.first, i.second}; }
+	        [](const auto &e) { return std::vector<int>{e.first, e.second}; }
 		);
 		return answer;
 	}
 };
 
 
-
 int main() {
 	SummaryRanges summaryRanges;
-    summaryRanges.addNum(1);      // arr = [1]
-    std::cout << summaryRanges.getIntervals() << " == [[1, 1]]" << std::endl;
-    summaryRanges.addNum(3);      // arr = [1, 3]
-    std::cout << summaryRanges.getIntervals() << " == [[1, 1], [3, 3]]" << std::endl;
-    summaryRanges.addNum(7);      // arr = [1, 3, 7]
-    std::cout << summaryRanges.getIntervals() << " == [[1, 1], [3, 3], [7, 7]]" << std::endl;
-    summaryRanges.addNum(2);      // arr = [1, 2, 3, 7]
-    std::cout << summaryRanges.getIntervals() << " == [[1, 3], [7, 7]]" << std::endl;
-    summaryRanges.addNum(6);      // arr = [1, 2, 3, 6, 7]
-    std::cout << summaryRanges.getIntervals() << " == [[1, 3], [6, 7]]" << std::endl;
+	summaryRanges.addNum(1);      // arr = [1]
+	std::cout << summaryRanges.getIntervals() << " == [[1, 1]]" << std::endl;
+	summaryRanges.addNum(3);      // arr = [1, 3]
+	std::cout << summaryRanges.getIntervals() << " == [[1, 1], [3, 3]]" << std::endl;
+	summaryRanges.addNum(7);      // arr = [1, 3, 7]
+	std::cout << summaryRanges.getIntervals() << " == [[1, 1], [3, 3], [7, 7]]" << std::endl;
+	summaryRanges.addNum(2);      // arr = [1, 2, 3, 7]
+	std::cout << summaryRanges.getIntervals() << " == [[1, 3], [7, 7]]" << std::endl;
+	summaryRanges.addNum(6);      // arr = [1, 2, 3, 6, 7]
+	std::cout << summaryRanges.getIntervals() << " == [[1, 3], [6, 7]]" << std::endl;
 }
