@@ -1,7 +1,7 @@
 LeetCode
 ========
 
-[LeetCode](https://leetcode.com/) is a collection of algorithmic problems which is purposed for a training before a coding interview. Here I suggest my own solutions of some of those problems.
+[LeetCode](https://leetcode.com/) is a collection of algorithmic problems which is purposed for a training before a coding interview. Here I suggest my own solutions to some of those problems.
 
 Problems and Solutions
 ----------------------
@@ -13,6 +13,8 @@ Problems and Solutions
 | —〃— | —〃— | [C++ (eager)](C++/src/problem0352_v2.cpp) | 100% | A significant improvement of the previous solution, that avoids unnecessary modification of a search tree and provides a cleaner, more “symmetrical” view of the problem. |
 | —〃— | —〃— | [C++ (eager)](C++/src/problem0352_v3.cpp) | 100% :zap: | The most clean and laconic solution. First, a confusing `std::map` was abandoned in favor of natural `std::set` of intervals. Second, a major share of work was assigned to a smartly chosen comparator (this comparator is considered as an invariant, which is automatically maintained by a `set`). Third, some amount of efficiency was sacrificed for code aesthetics, switching general design principle to a more transparent “try to insert and, if fail, fix whats hinder”. Finally, a `const_cast` trick helped to counterbalance that sacrifice and to keep a near-top performance. |
 | —〃— | —〃— | Python *(coming soon)* | | A completely different approach. Instead of eager modification of a sophisticated data structure, I just accumulate incoming points into a list. And only on user's demand I convert them to a sequence of intervals and [merge][merge] it with the same sequence from the last step. |
+| [202. Happy Number](https://leetcode.com/problems/happy-number/) | :broccoli: 56.0% | [Python](Python/src/problem0202.py) | 97% :zap: | As I figured out, the function reduces any sufficient large number for at least one digit. Thus the number of steps is proportional to a bit length of the input value. For smaller values I have just precalculated the answer. |
+| —〃— | —〃— | [Kotlin](Kotlin/src/dev/aspid812/leetcode/problem0202/Solution.kt) | 7% | The same as above, but in Kotlin. I have made it as an exercise in Sequence API, and nothing more. |
 
 [^runtime]: This column shows a _runtime percentile_. For instance, “65%” should be read as “my solution beats 65% of others” (on the same platform). So, a larger value means a faster code and a better result.
 
